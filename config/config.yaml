@@ -1,0 +1,20 @@
+﻿daemon:
+  health_check_interval_sec: 10
+bus:
+  redis_addr: "127.0.0.1:7807"
+devices:
+  - id: "temp_sensor_01"
+    protocol: modbus
+    address: 1
+    points:
+      - name: "temperature"
+        register: 0
+        type: uint16
+        scale: 0.1
+storage:
+  influxdb_url: "http://127.0.0.1:7809"
+  influxdb_token: "my-super-secret-token"
+  influxdb_org: "gateway"
+  influxdb_bucket: "default"
+server:
+  port: 7819

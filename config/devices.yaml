@@ -1,0 +1,13 @@
+﻿devices:
+  - id: "temp_sensor_01"
+    protocol: modbus
+    address: 1
+    points:
+      - name: "temperature"
+        register: 0
+        type: uint16
+        scale: 0.1
+      - name: "humidity"
+        register: 1
+        type: uint16
+        scale: 0.1

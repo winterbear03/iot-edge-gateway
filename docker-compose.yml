@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  mosquitto:
+    image: crpi-hk86f0gagnu724n6.cn-shenzhen.personal.cr.aliyuncs.com/nik123/eclipse-mosquitto:2.0.15
+    ports:
+      - "7805:1883"
+    volumes:
+      - ./deploy/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  redis:
+    image: crpi-hk86f0gagnu724n6.cn-shenzhen.personal.cr.aliyuncs.com/nik123/redis:7-alpine
+    ports:
+      - "7807:6379"
+
+  influxdb:
+    image: crpi-hk86f0gagnu724n6.cn-shenzhen.personal.cr.aliyuncs.com/nik123/influxdb:2.5.1
+    ports:
+      - "7809:8086"
+    environment:
+      - INFLUXDB_DB=default
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin123
+      - INFLUXDB_ORG=gateway
+      - INFLUXDB_TOKEN=my-super-secret-token
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+
+  gateway:
+    build: .
+    ports:
+      - "7819:7819"
+    depends_on:
+      - mosquitto
+      - redis
+      - influxdb
+    volumes:
+      - ./config/config.yaml:/app/config/config.yaml
+
+volumes:
+  influxdb-data:
