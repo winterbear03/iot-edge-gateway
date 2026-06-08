@@ -1,10 +1,17 @@
-﻿daemon:
+daemon:
   health_check_interval_sec: 10
 bus:
   redis_addr: "127.0.0.1:7807"
+serial:
+  port: "COM3"
+  baud_rate: 9600
+  data_bits: 8
+  stop_bits: 1
+  parity: "none"
 devices:
   - id: "temp_sensor_01"
     protocol: modbus
+    transport: rtu
     address: 1
     points:
       - name: "temperature"

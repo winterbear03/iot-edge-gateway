@@ -1,0 +1,34 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/gateway
+/simulator
+
+# Test binary
+*.test
+
+# Go workspace
+go.work
+
+# Build output
+cmd/gateway/web/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+
+# Dependencies
+vendor/

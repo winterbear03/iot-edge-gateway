@@ -1,4 +1,4 @@
-﻿package config
+package config
 
 import (
     "os"
@@ -8,18 +8,28 @@ import (
 type Config struct {
     Daemon  DaemonConfig   `yaml:"daemon"`
     Bus     BusConfig      `yaml:"bus"`
+    Serial  SerialConfig   `yaml:"serial"`
     Devices []DeviceConfig `yaml:"devices"`
     Storage StorageConfig  `yaml:"storage"`
     Server  ServerConfig   `yaml:"server"`
 }
 
+type SerialConfig struct {
+    Port     string `yaml:"port"`
+    BaudRate int    `yaml:"baud_rate"`
+    DataBits int    `yaml:"data_bits"`
+    StopBits int    `yaml:"stop_bits"`
+    Parity   string `yaml:"parity"`
+}
+
 type DaemonConfig struct { HealthCheckInterval int `yaml:"health_check_interval_sec"` }
 type BusConfig struct { RedisAddr string `yaml:"redis_addr"` }
 type DeviceConfig struct {
-    ID       string  `yaml:"id"`
-    Protocol string  `yaml:"protocol"`
-    Address  int     `yaml:"address"`
-    Points   []Point `yaml:"points"`
+    ID        string  `yaml:"id"`
+    Protocol  string  `yaml:"protocol"`
+    Transport string  `yaml:"transport"`
+    Address   int     `yaml:"address"`
+    Points    []Point `yaml:"points"`
 }
 type Point struct {
     Name     string  `yaml:"name"`
